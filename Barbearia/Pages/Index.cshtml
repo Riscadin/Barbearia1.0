@@ -1,0 +1,369 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Barbearia Oliveira";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Oliveira</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .main .services ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .main .services ul li {
+            background-color: #333;
+            padding: 10px;
+            margin: 0 10px 0 0;
+            min-width: 200px;
+            flex-shrink: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header img {
+            width: 50px;
+        }
+
+        .main {
+            margin-top: 20px;
+        }
+
+        .main h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .main .rating {
+            color: gold;
+        }
+
+        .main .info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .main .info i {
+            margin-right: 10px;
+        }
+
+        .main button {
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .main .favorite {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .main .services, .main .hours {
+            margin-top: 20px;
+        }
+
+        .main .services h3, .main .hours h3 {
+            margin-bottom: 10px;
+        }
+
+        .main .services ul, .main .hours ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .main .services ul li, .main .hours ul li {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .main .hours ul li {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .about {
+            margin-top: 20px;
+        }
+
+        /* Estilos para o formulário de agendamento */
+        #scheduleForm {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: black;
+            z-index: 1000;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 100px auto;
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+        }
+
+        .form-container label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .form-container select,
+        .form-container input[type="text"],
+        .form-container input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://via.placeholder.com/50" alt="Logo">
+            <h1>Barbearia Oliveira</h1>
+        </div>
+        <div class="main">
+            <h2>Barbearia Oliveira - AEROPORTO</h2>
+            <div class="rating">
+                <i class="fas fa-star"></i> 5.0
+            </div>
+            <div class="info">
+                <i class="fas fa-map-marker-alt"></i> ... - Cachoeiro de Itapemirim, Espírito Santo
+            </div>
+            <div class="info">
+                <i class="fas fa-clock"></i> Aberto agora
+            </div>
+            <div class="info">
+                <i class="fas fa-phone"></i> (28) 999965464
+            </div>
+            <button id="scheduleButton">Agendar um horário</button>
+            <button class="favorite"><i class="fas fa-heart"></i> Favoritar</button>
+            <div class="services">
+                <h3>Serviços</h3>
+                <ul>
+                    <li>01 - Corte: R$ 30,00</li>
+                    <li>02 - Barba: R$ 35,00</li>
+                    <li>03 - Barba e Corte: R$ 40,00</li>
+                </ul>
+            </div>
+            <div class="hours">
+                <h3>Horários</h3>
+                <ul>
+                    <li>Segunda Feira: <span>08:00 - 19:30</span></li>
+                    <li>Terça Feira: <span>08:00 - 19:30</span></li>
+                    <li>Quarta Feira: <span>08:00 - 19:30</span></li>
+                    <li>Quinta Feira: <span>08:00 - 19:30</span></li>
+                    <li>Sexta Feira: <span>08:00 - 19:30</span></li>
+                    <li>Sábado: <span>08:00 - 17:00</span></li>
+                    <li>Domingo: <span>Fechado</span></li>
+                </ul>
+            </div>
+            <div class="about">
+                <h3>Sobre</h3>
+                <p>Barbearia bem localizada...</p>
+            </div>
+        </div>
+
+        <!-- Formulário de agendamento -->
+        <div id="scheduleForm">
+            <div class="form-container">
+                <h2>Agendar um Horário</h2>
+                <label for="serviceSelect">Serviço:</label>
+                <select id="serviceSelect">
+                    <option value="Corte">Corte</option>
+                    <option value="Barba">Barba</option>
+                    <option value="Barba e Corte">Barba e Corte</option>
+                </select>
+
+                <label for="dateInput">Data:</label>
+                <input type="date" id="dateInput">
+
+                <label for="timeSelect">Horário:</label>
+                <select id="timeSelect">
+                    <!-- Opções de horário -->
+                </select>
+
+                <button id="confirmButton">Confirmar</button>
+                <button id="closeButton">Voltar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+    var scheduleButton = document.getElementById("scheduleButton");
+    var scheduleForm = document.getElementById("scheduleForm");
+    var confirmButton = document.getElementById("confirmButton");
+    var dateInput = document.getElementById("dateInput");
+    var timeSelect = document.getElementById("timeSelect");
+
+    // Dados dos horários já agendados
+    var scheduledAppointments = {
+        // Formato: 'YYYY-MM-DD': ['HH:MM', 'HH:MM']
+
+    };
+
+    // Restrição de data: apenas do dia atual em diante
+    var today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    scheduleButton.onclick = function() {
+        scheduleForm.style.display = "block";
+        updateAvailableTimes(dateInput.value || today);
+    }
+
+    confirmButton.onclick = function() {
+        var selectedDate = dateInput.value;
+        var selectedTime = timeSelect.value;
+        if (selectedDate && selectedTime) {
+            if (!scheduledAppointments[selectedDate]) {
+                scheduledAppointments[selectedDate] = [];
+            }
+            if (!scheduledAppointments[selectedDate].includes(selectedTime)) {
+                scheduledAppointments[selectedDate].push(selectedTime);
+                alert("Horário agendado com sucesso!");
+                scheduleForm.style.display = "none";
+            } else {
+                alert("Este horário já está agendado.");
+            }
+        } else {
+            alert("Por favor, selecione uma data e um horário.");
+        }
+    }
+    closeButton.onclick = function() {
+        scheduleForm.style.display = "none";
+    }
+
+    dateInput.onchange = function() {
+        var selectedDate = dateInput.value;
+        updateAvailableTimes(selectedDate);
+    }
+
+    // Função para popular o select de horário
+    function populateTimeSelect(selectElement, times) {
+        // Limpar as opções anteriores
+        selectElement.innerHTML = '';
+
+        if (times.length === 0) {
+            let option = document.createElement('option');
+            option.value = '';
+            option.text = 'Nenhum horário disponível';
+            selectElement.appendChild(option);
+            selectElement.disabled = true;
+        } else {
+            times.forEach(time => {
+                let option = document.createElement('option');
+                option.value = time;
+                option.text = time;
+                selectElement.appendChild(option);
+            });
+            selectElement.disabled = false;
+        }
+    }
+
+    // Função para obter os horários disponíveis com base na data selecionada
+    function updateAvailableTimes(selectedDate) {
+        var availableTimes = [];
+        for (let hour = 8; hour <= 19; hour++) {
+            availableTimes.push(`${String(hour).padStart(2, '0')}:00`);
+        }
+
+        if (scheduledAppointments[selectedDate]) {
+            availableTimes = availableTimes.filter(time => !scheduledAppointments[selectedDate].includes(time));
+        }
+
+        populateTimeSelect(timeSelect, availableTimes);
+    }
+
+    // Populando o select com horários disponíveis para a data atual
+    updateAvailableTimes(today);
+});
+
+            // Função para buscar eventos do calendário
+            function getCalendarEvents() {
+                $.ajax({
+                    url: '@Url.Page("Index", "OnGetCalendarEvents")',
+                    type: 'GET',
+                    data: { accessToken: 'seu_token_de_acesso' }, // Substitua pelo token de acesso real
+                    success: function (data) {
+                        // Atualizar UI com os dados recebidos (exemplo: console.log(data);)
+                        console.log(data);
+                        
+                    },
+                    error: function (error) {
+                        console.error('Erro ao obter eventos do calendário:', error);
+                    }
+                });
+            }
+
+            // Chamar a função para buscar eventos imediatamente ao carregar a página
+            getCalendarEvents();
+
+            // Atualizar eventos a cada 15 segundos
+            setInterval(getCalendarEvents, 15000);
+    </script>
+</body>
+</html>
